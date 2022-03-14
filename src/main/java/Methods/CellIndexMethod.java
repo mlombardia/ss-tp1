@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static Particles.ParticleGenerator.L;
+import static Particles.ParticleGenerator.isPeriodic;
 
 public class CellIndexMethod {
     public static int rc = 1;
     public static int M = 71;
     public static double cellSize = (double) L / M;
-    public static boolean periodic = true; //todo al parsear el input de terminal
 
     private static List<List<Particle>> cells;
 
@@ -41,6 +41,7 @@ public class CellIndexMethod {
                 int xUp = x + 1;
                 int yUp = y + 1;
                 int yDown = y - 1;
+                getNeighbours(particle, x, y); //current
                 getNeighbours(particle, x, yUp); //up
                 getNeighbours(particle, xUp, yUp); //up and right
                 getNeighbours(particle, xUp, y); //right
@@ -50,7 +51,7 @@ public class CellIndexMethod {
     }
 
     private static void getNeighbours(Particle particle, int x, int y) {
-        if (!periodic) {
+        if (!isPeriodic) {
             if (x >= 0 && y >= 0 && x < M && y < M) {
                 computeNeighbours(particle, x, y);
             }
@@ -74,9 +75,9 @@ public class CellIndexMethod {
     private static void computeNeighbours(Particle particle, int x, int y) {
         List<Particle> cell = cells.get(y * M + x);
         for (Particle neighbour : cell) {
-            if (!neighbour.equals(particle)) {
+            if (!neighbour.equals(particle) && !particle.getNeighbours().contains(neighbour)) {
                 double dist;
-                if (!periodic) {
+                if (!isPeriodic) {
                     dist = particle.getDistanceFrom(neighbour);
                 } else {
                     dist = particle.getPeriodicContourDistanceFrom(neighbour);

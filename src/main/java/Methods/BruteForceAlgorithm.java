@@ -4,7 +4,7 @@ import Particles.Particle;
 
 import java.util.List;
 
-import static Methods.CellIndexMethod.periodic;
+import static Particles.ParticleGenerator.isPeriodic;
 import static Methods.CellIndexMethod.rc;
 
 public class BruteForceAlgorithm {
@@ -14,7 +14,7 @@ public class BruteForceAlgorithm {
             for (Particle particleB : particles) {
                 if (!particleA.equals(particleB) && !particleA.getNeighbours().contains(particleB)){
                     double dist;
-                    if (!periodic) {
+                    if (!isPeriodic) {
                         dist = particleA.getDistanceFrom(particleB);
                     }else{
                         dist = particleA.getPeriodicContourDistanceFrom(particleB);

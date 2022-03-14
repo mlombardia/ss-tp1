@@ -8,7 +8,7 @@ import java.util.List;
 
 public class App {
     public static void main(String[] args) {
-        ParticleGenerator generator = new ParticleGenerator();
+        ParticleGenerator generator = new ParticleGenerator(args);
         CIM(generator);
         BF(generator);
     }

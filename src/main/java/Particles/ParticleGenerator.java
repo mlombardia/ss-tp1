@@ -7,11 +7,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ParticleGenerator {
-    public static String staticPath = "src/main/resources/Static100.txt";
-    public static String dynamicPath = "src/main/resources/Dynamic100.txt";
+    public String staticPath;
+    public String dynamicPath;
+    public static boolean isPeriodic;
     public static int N;
     public static int L;
-    public ParticleGenerator() {
+    public ParticleGenerator(String[] args) {
+        this.staticPath = args[0];
+        this.dynamicPath = args[1];
+        isPeriodic = args.length > 2 && (args[2].equals("-periodic"));
     }
 
     public void generate(List<Particle> particles) {
