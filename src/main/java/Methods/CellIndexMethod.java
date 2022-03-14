@@ -11,6 +11,7 @@ public class CellIndexMethod {
     public static int rc = 1;
     public static int M = 71;
     public static double cellSize = (double) L / M;
+    public static boolean periodic = true; //todo al parsear el input de terminal
 
     private static List<List<Particle>> cells;
 
@@ -49,15 +50,40 @@ public class CellIndexMethod {
     }
 
     private static void getNeighbours(Particle particle, int x, int y) {
-        if (x >= 0 && y >= 0 && x < M && y < M) {
-            List<Particle> cell = cells.get(y * M + x);
-            for (Particle neighbour : cell) {
-                if (!neighbour.equals(particle)) {
-                    double dist = particle.getDistanceFrom(neighbour);
-                    if (dist < rc) {
-                        particle.addNeighbour(neighbour);
-                        neighbour.addNeighbour(particle);
-                    }
+        if (!periodic) {
+            if (x >= 0 && y >= 0 && x < M && y < M) {
+                computeNeighbours(particle, x, y);
+            }
+        } else {
+            if (x >= M) {
+                x = 0;
+            }
+            if (x == -1) {
+                x = M - 1;
+            }
+            if (y >= M) {
+                y = 0;
+            }
+            if (y == -1) {
+                y = M - 1;
+            }
+            computeNeighbours(particle, x, y);
+        }
+    }
+
+    private static void computeNeighbours(Particle particle, int x, int y) {
+        List<Particle> cell = cells.get(y * M + x);
+        for (Particle neighbour : cell) {
+            if (!neighbour.equals(particle)) {
+                double dist;
+                if (!periodic) {
+                    dist = particle.getDistanceFrom(neighbour);
+                } else {
+                    dist = particle.getPeriodicContourDistanceFrom(neighbour);
+                }
+                if (dist < rc) {
+                    particle.addNeighbour(neighbour);
+                    neighbour.addNeighbour(particle);
                 }
             }
         }

@@ -123,11 +123,11 @@ public class Particle {
 
     public double getPeriodicContourDistanceFrom(Particle neighbour) {
         double distX = Math.abs(this.x - neighbour.getX());
-        if (this.getXCell() + 1 > M || this.getXCell() - 1 < M) {
+        if (distX > (double) L / 2) {
             distX = L - distX;
         }
         double distY = Math.abs(this.y - neighbour.getY());
-        if (this.getYCell() + 1 > M || this.getYCell() - 1 < M) {
+        if (distY > (double) L / 2) {
             distY = L - distY;
         }
         return Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2))
