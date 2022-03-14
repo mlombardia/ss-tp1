@@ -7,10 +7,10 @@ import java.util.List;
 
 import static Particles.ParticleGenerator.L;
 import static Particles.ParticleGenerator.isPeriodic;
+import static Particles.ParticleGenerator.M;
+import static Particles.ParticleGenerator.rc;
 
 public class CellIndexMethod {
-    public static int rc = 1;
-    public static int M = 71;
     public static double cellSize = (double) L / M;
 
     private static List<List<Particle>> cells;

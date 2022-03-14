@@ -12,10 +12,14 @@ public class ParticleGenerator {
     public static boolean isPeriodic;
     public static int N;
     public static int L;
+    public static double rc;
+    public static int M;
     public ParticleGenerator(String[] args) {
         this.staticPath = args[0];
         this.dynamicPath = args[1];
-        isPeriodic = args.length > 2 && (args[2].equals("-periodic"));
+        rc = args[2].equals("-rc")? Double.parseDouble(args[3]) : (args[4].equals("-rc")? Double.parseDouble(args[5]) : 1.0);
+        M = args[2].equals("-m")? Integer.parseInt(args[3]) : (args[4].equals("-m")? Integer.parseInt(args[5]) : 1);
+        isPeriodic = args[2].equals("-periodic") || args[4].equals("-periodic") || args[6].equals("-periodic");
     }
 
     public void generate(List<Particle> particles) {

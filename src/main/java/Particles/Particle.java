@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static Methods.CellIndexMethod.M;
-import static Methods.CellIndexMethod.rc;
 import static Particles.ParticleGenerator.L;
 
 public class Particle {

@@ -5,7 +5,7 @@ import Particles.Particle;
 import java.util.List;
 
 import static Particles.ParticleGenerator.isPeriodic;
-import static Methods.CellIndexMethod.rc;
+import static Particles.ParticleGenerator.rc;
 
 public class BruteForceAlgorithm {
 
