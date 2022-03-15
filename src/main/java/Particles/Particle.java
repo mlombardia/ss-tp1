@@ -131,4 +131,15 @@ public class Particle {
         return Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2))
                 - this.radius - neighbour.getRadius();
     }
+
+    public String printNeighboursIds(){
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < neighbours.size(); i++) {
+            stringBuilder.append(neighbours.get(i).id);
+            if(i != neighbours.size() - 1){
+                stringBuilder.append(",");
+            }
+        }
+        return stringBuilder.toString();
+    }
 }

@@ -22,8 +22,10 @@ public class App {
         long endTime = System.nanoTime();
         System.out.printf("CIM: %d ms\n", (endTime - startTime) / 1000000);
         particles.forEach(particle -> {
-            if (particle.getNeighbours().size() != 0)
+            if (particle.getNeighbours().size() != 0) {
                 System.out.printf("particle %d has %d neighbours\n", particle.getId(), particle.getNeighbours().size());
+                System.out.printf("[%d %s]\n", particle.getId(), particle.printNeighboursIds());
+            }
         });
     }
 
@@ -37,8 +39,10 @@ public class App {
 
         System.out.printf("Brute Force %d ms\n", (endTime - startTime) / 1000000);
         particles.forEach(particle -> {
-            if (particle.getNeighbours().size() != 0)
+            if (particle.getNeighbours().size() != 0) {
                 System.out.printf("particle %d has %d neighbours\n", particle.getId(), particle.getNeighbours().size());
+                System.out.printf("[%d %s]\n", particle.getId(), particle.printNeighboursIds());
+            }
         });
     }
 }
