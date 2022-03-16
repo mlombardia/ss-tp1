@@ -12,11 +12,12 @@ public class App {
         List<Particle> particles = new ArrayList<>();
         generator.generate(particles);
         generator.placeParticles(particles);
-        CIM(particles);
+        long timeCIM = CIM(particles);
         BF(particles);
+        FileWriter.writeOutput(particles, 100.0, 100, timeCIM, 1.0);
     }
 
-    private static void CIM(List<Particle> particles) {
+    private static long CIM(List<Particle> particles) {
         long startTime = System.nanoTime();
         CellIndexMethod.run(particles);
         long endTime = System.nanoTime();
@@ -27,6 +28,7 @@ public class App {
                 System.out.printf("[%d %s]\n", particle.getId(), particle.printNeighboursIds());
             }
         });
+        return (endTime - startTime) / 1000000;
     }
 
     private static void BF(List<Particle> particles) {
