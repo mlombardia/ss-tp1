@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class ParticleGenerator {
     public String staticPath;
@@ -43,6 +44,18 @@ public class ParticleGenerator {
         } catch (IOException e) {
             System.err.print("Could not open file: ");
             e.printStackTrace();
+        }
+    }
+
+    public void generateRandom(List<Particle> particles){
+        N = 100;
+        L = 100;
+
+        for (int i = 1;i <= N; i++){
+            Particle particle = new Particle(i, 0.37, 1.0);
+            particle.setX((new Random().nextDouble())*L);
+            particle.setY((new Random().nextDouble())*L);
+            particles.add(particle);
         }
     }
 
