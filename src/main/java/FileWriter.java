@@ -13,11 +13,12 @@ public class FileWriter {
         Path fileStatic = Paths.get("src/main/resources/StaticOutput.txt");
         Path fileNeighbour = Paths.get("src/main/resources/NeighbourOutput.txt");
 
+        //static output
         List<String> lines = new ArrayList<>();
         lines.add(quantity.toString());
         lines.add(L.toString());
         for(Particle p : particles){
-            StringBuilder m = new StringBuilder(p.getId() + " " + p.getRadius() + " " + p.getX() + " " + p.getY());
+            StringBuilder m = new StringBuilder(p.getId()-1 + " " + p.getRadius() + " " + p.getX() + " " + p.getY());
             lines.add(m.toString());
         }
         try {
@@ -26,20 +27,17 @@ public class FileWriter {
             e.printStackTrace();
         }
 
+        //neighbour output
         lines = new ArrayList<>();
         lines.add(time.toString());
         lines.add(rc.toString());
 
         for(Particle p : particles) {
-            if (p.getNeighbours().size() != 0) {
-                StringBuilder m = new StringBuilder(p.getId() + " ");
-                int i = p.getNeighbours().size();
-                while (i>0){
+            StringBuilder m = new StringBuilder(p.getId()-1 + " ");
+            //if (p.getNeighbours().size() != 0) {
                     m.append(p.printNeighboursIds() + " ");
-                    i--;
-                }
                 lines.add(m.toString());
-            }
+            //}
         }
 
         try {
