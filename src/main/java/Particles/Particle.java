@@ -137,7 +137,7 @@ public class Particle {
         for (int i = 0; i < neighbours.size(); i++) {
             stringBuilder.append(neighbours.get(i).id);
             if(i != neighbours.size() - 1){
-                stringBuilder.append(",");
+                stringBuilder.append(" ");
             }
         }
         return stringBuilder.toString();

@@ -21,14 +21,16 @@ public class App {
         long startTime = System.nanoTime();
         CellIndexMethod.run(particles);
         long endTime = System.nanoTime();
+        int neighbours = 0;
         System.out.printf("CIM: %d ms\n", (endTime - startTime) / 1000000);
-        particles.forEach(particle -> {
-            if (particle.getNeighbours().size() != 0) {
-                System.out.printf("particle %d has %d neighbours\n", particle.getId(), particle.getNeighbours().size());
-                System.out.printf("[%d %s]\n", particle.getId(), particle.printNeighboursIds());
+        for(Particle p : particles){
+            if (p.getNeighbours().size() != 0) {
+                System.out.printf("particle %d has %d neighbours\n", p.getId(), p.getNeighbours().size());
+                neighbours += p.getNeighbours().size();
+                System.out.printf("[%d %s]\n", p.getId(), p.printNeighboursIds());
             }
-        });
-        return (endTime - startTime) / 1000000;
+        }
+        return (endTime - startTime);
     }
 
     private static void BF(List<Particle> particles) {
