@@ -10,8 +10,8 @@ import java.util.List;
 
 public class FileWriter {
     public static void writeOutput(List<Particle> particles, Double L, Integer quantity, Long time, Double rc){
-        Path fileStatic = Paths.get("src/main/resources/StaticOutput.txt");
-        Path fileNeighbour = Paths.get("src/main/resources/NeighbourOutput.txt");
+        Path fileStatic = Paths.get("graphic/StaticOutput");
+        Path fileNeighbour = Paths.get("graphic/NeighbourOutput");
 
         //static output
         List<String> lines = new ArrayList<>();
