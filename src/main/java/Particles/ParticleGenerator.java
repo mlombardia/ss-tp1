@@ -21,10 +21,31 @@ public class ParticleGenerator {
     public ParticleGenerator(String[] args) {
         this.staticPath = args[0];
         this.dynamicPath = args[1];
-        rc = args[2].equals("-rc") ? Double.parseDouble(args[3]) : (args[4].equals("-rc") ? Double.parseDouble(args[5]) : 1.0);
-        M = args[2].equals("-m") ? Integer.parseInt(args[3]) : (args[4].equals("-m") ? Integer.parseInt(args[5]) : -1);
-        isPeriodic = args[2].equals("-periodic") || args[4].equals("-periodic") || args[6].equals("-periodic") || args[7].equals("-periodic");
-        isRandom = args[2].equals("-r") || args[4].equals("-r") || args[6].equals("-r") || args[7].equals("-r");
+        //todo -parser
+        try {
+            rc = args[2].equals("-rc") ? Double.parseDouble(args[3]) : (args[4].equals("-rc") ? Double.parseDouble(args[5]) : 1.0);
+        }catch (RuntimeException e){
+            rc = 1;
+            System.out.println("No -rc conditions established");
+        }
+        try{
+            M = args[2].equals("-m") ? Integer.parseInt(args[3]) : (args[4].equals("-m") ? Integer.parseInt(args[5]) : -1);
+        }catch (RuntimeException e){
+            M = -1;
+            System.out.println("No -m conditions established");
+        }
+        try{
+            isPeriodic = args[2].equals("-periodic") || args[4].equals("-periodic") || args[6].equals("-periodic") || args[7].equals("-periodic");
+        }catch (RuntimeException e){
+            isPeriodic = false;
+            System.out.println("No -periodic conditions established");
+        }
+        try{
+            isRandom = args[2].equals("-r") || args[4].equals("-r") || args[6].equals("-r") || args[7].equals("-r");
+        }catch (RuntimeException e){
+            isRandom = false;
+            System.out.println("No -random conditions established");
+        }
     }
 
     public void generate(List<Particle> particles) {
@@ -35,6 +56,9 @@ public class ParticleGenerator {
             int id = 1;
             N = Integer.parseInt(line.trim());
             L = Integer.parseInt(reader.readLine().trim());
+            if (M == -1) {
+                M = (int) Math.floor(L / rc + 2 * rMax);
+            }
             line = reader.readLine();
 
             while (line != null) {
