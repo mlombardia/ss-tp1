@@ -24,7 +24,7 @@ public class RandomInputFileWriter {
         }
 
         String formatted = new DecimalFormat("#.#######").format(number);
-        return String.format("%s+e0%d", formatted.replace(",","."), eFactor);
+        return String.format("%se+0%d", formatted.replace(",","."), eFactor);
     }
 
     public static void writeRandomInput(List<Particle> particles, Integer L, Integer quantity, Integer time){

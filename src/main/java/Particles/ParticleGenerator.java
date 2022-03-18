@@ -56,7 +56,7 @@ public class ParticleGenerator {
     }
 
     public void generateRandom(List<Particle> particles) {
-        N = 100;
+        N = 1000;
         L = 100;
         if (M == -1) {
             M = (int) Math.floor(L / rc + 2 * rMax);
@@ -71,6 +71,8 @@ public class ParticleGenerator {
             particles.add(particle);
         }
         RandomInputFileWriter.writeRandomInput(particles, L, N, 0);
+       staticPath="src/main/resources/random_particles_static_" + N + ".txt";
+       dynamicPath="src/main/resources/random_particles_dynamic_" + N + ".txt";
     }
 
     public void placeParticles(List<Particle> particles) {
