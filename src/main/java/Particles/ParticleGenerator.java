@@ -15,12 +15,14 @@ public class ParticleGenerator {
     public static int N;
     public static int L;
     public static double rc;
+    public static double rMax = -1;
     public static int M;
+
     public ParticleGenerator(String[] args) {
         this.staticPath = args[0];
         this.dynamicPath = args[1];
-        rc = args[2].equals("-rc")? Double.parseDouble(args[3]) : (args[4].equals("-rc")? Double.parseDouble(args[5]) : 1.0);
-        M = args[2].equals("-m")? Integer.parseInt(args[3]) : (args[4].equals("-m")? Integer.parseInt(args[5]) : 1);
+        rc = args[2].equals("-rc") ? Double.parseDouble(args[3]) : (args[4].equals("-rc") ? Double.parseDouble(args[5]) : 1.0);
+        M = args[2].equals("-m") ? Integer.parseInt(args[3]) : (args[4].equals("-m") ? Integer.parseInt(args[5]) : -1);
         isPeriodic = args[2].equals("-periodic") || args[4].equals("-periodic") || args[6].equals("-periodic") || args[7].equals("-periodic");
         isRandom = args[2].equals("-r") || args[4].equals("-r") || args[6].equals("-r") || args[7].equals("-r");
     }
@@ -38,7 +40,11 @@ public class ParticleGenerator {
             while (line != null) {
                 line = line.trim().replaceAll("\\s+", " ");
                 String[] ans = line.split(" ");
-                Particle particle = new Particle(id++, Double.parseDouble(ans[0]), Double.parseDouble(ans[1]));
+                double r = Double.parseDouble(ans[0]);
+                if (r > rMax) {
+                    rMax = r;
+                }
+                Particle particle = new Particle(id++, r, Double.parseDouble(ans[1]));
                 particles.add(particle);
                 line = reader.readLine();
             }
@@ -49,16 +55,19 @@ public class ParticleGenerator {
         }
     }
 
-    public void generateRandom(List<Particle> particles){
+    public void generateRandom(List<Particle> particles) {
         N = 100;
         L = 100;
+        if (M == -1) {
+            M = (int) Math.floor(L / rc + 2 * rMax);
+        }
         double radius = 0.25;
         double property = 1.0;
 
-        for (int i = 1;i <= N; i++){
+        for (int i = 1; i <= N; i++) {
             Particle particle = new Particle(i, radius, property);
-            particle.setX((new Random().nextDouble())*L);
-            particle.setY((new Random().nextDouble())*L);
+            particle.setX((new Random().nextDouble()) * L);
+            particle.setY((new Random().nextDouble()) * L);
             particles.add(particle);
         }
         RandomInputFileWriter.writeRandomInput(particles, L, N, 0);
