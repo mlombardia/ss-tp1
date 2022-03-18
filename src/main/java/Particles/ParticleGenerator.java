@@ -11,6 +11,7 @@ public class ParticleGenerator {
     public String staticPath;
     public String dynamicPath;
     public static boolean isPeriodic;
+    public static boolean isRandom;
     public static int N;
     public static int L;
     public static double rc;
@@ -20,7 +21,8 @@ public class ParticleGenerator {
         this.dynamicPath = args[1];
         rc = args[2].equals("-rc")? Double.parseDouble(args[3]) : (args[4].equals("-rc")? Double.parseDouble(args[5]) : 1.0);
         M = args[2].equals("-m")? Integer.parseInt(args[3]) : (args[4].equals("-m")? Integer.parseInt(args[5]) : 1);
-        isPeriodic = args[2].equals("-periodic") || args[4].equals("-periodic") || args[6].equals("-periodic");
+        isPeriodic = args[2].equals("-periodic") || args[4].equals("-periodic") || args[6].equals("-periodic") || args[7].equals("-periodic");
+        isRandom = args[2].equals("-r") || args[4].equals("-r") || args[6].equals("-r") || args[7].equals("-r");
     }
 
     public void generate(List<Particle> particles) {
@@ -50,13 +52,16 @@ public class ParticleGenerator {
     public void generateRandom(List<Particle> particles){
         N = 100;
         L = 100;
+        double radius = 0.25;
+        double property = 1.0;
 
         for (int i = 1;i <= N; i++){
-            Particle particle = new Particle(i, 0.37, 1.0);
+            Particle particle = new Particle(i, radius, property);
             particle.setX((new Random().nextDouble())*L);
             particle.setY((new Random().nextDouble())*L);
             particles.add(particle);
         }
+        RandomInputFileWriter.writeRandomInput(particles, L, N, 0);
     }
 
     public void placeParticles(List<Particle> particles) {
