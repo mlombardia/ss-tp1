@@ -10,7 +10,11 @@ public class App {
     public static void main(String[] args) {
         ParticleGenerator generator = new ParticleGenerator(args);
         List<Particle> particles = new ArrayList<>();
-        generator.generate(particles);
+        if(ParticleGenerator.isRandom){
+            generator.generateRandom(particles);
+        }else{
+            generator.generate(particles);
+        }
         generator.placeParticles(particles);
         long timeCIM = CIM(particles);
         BF(particles);
